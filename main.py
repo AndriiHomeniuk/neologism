@@ -1,10 +1,12 @@
-import urllib3
+import urllib
+
 
 def get_file_from_site():
-	'''
-	This function help get file with some text from site and save this file on the server for next process.
-	'''
-	pass
+    """
+    This function help get file with some text from site and save this file on the server for next process.
+    """
+    pass
+
 
 def open_file():
 	'''
@@ -12,11 +14,12 @@ def open_file():
 	'''
 	pass
 
+
 def get_text_from_site():
 	'''
 	This function help get some text from site and save this text on the server.
 	'''
-	text = text_from_site
+	# text = text_from_site
 	text = "Якийсь тестовий текст з сайту"
 	return text
 
@@ -37,8 +40,7 @@ def search_words(text_result):
 	'''
 	This function search neologisms from the text on the vocabularies site and give list of neologisms.
 	'''
-	pass
-	return list_of_neologisms
+	# return list_of_neologisms
 
 def list_to_file(list_of_neologisms):
 	'''
@@ -47,11 +49,13 @@ def list_to_file(list_of_neologisms):
 	with open('neologism_file.txt', 'w') as neologism_file:
 		neologism_file.write(list_of_neologisms) 
 
+
 def give_file_to_site():
 	'''
 	This function return file with saved neologisms for donwloading.
 	'''
 	pass
+
 
 def give_list_to_site(list_of_neologisms):
 	'''
