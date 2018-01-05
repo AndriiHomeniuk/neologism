@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NeoSearch</title>
+    <link rel="stylesheet" href="bootstrap.css">
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="#">NeoSearch</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Головна <span class="sr-only">(зараз)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Особистий кабінет</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Про нас</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Пошук">
+          <button class="btn btn-secondary my-2 my-sm-0" type="submit">Пошук</button>
+        </form>
+      </div>
+    </nav>
+
+    <blockquote class="blockquote text-center">
+      <p class="mb-0">Новотвір або неологізм (від грец. νέος — молодий, новий і λογισμός — судження, вислів) — новостворений термін, авторське слово або фраза, що перебуває в процесі входження в загальне використання і ще не включена до державної та загальновживаної мови.</p>
+      <footer class="blockquote-footer">цитата <cite title="Source Title">Wikipedia</cite></footer>
+    </blockquote>
+
+    <div style="width: 100%;">
+      <textarea id="source" name="text" wrap="SOFT" tabindex="0" dir="ltr" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" class="goog-textarea short_text" style="box-sizing: border-box; overflow-y: hidden; overflow-x: auto; height: 100px; padding-right: 500px;"></textarea>
+      <textarea id="source-is" name="text-is" disabled="" wrap="SOFT" dir="ltr" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" class="goog-textarea short_text" style="overflow-y: hidden; overflow-x: auto; box-sizing: border-box; padding-bottom: 32px; height: 100px; padding-right: 500px;"></textarea></div>
+    <div id="gt-lang-submit"><input type="submit" id="gt-submit" value="Пошук" tabindex="0" class="jfk-button jfk-button-action"></div>
+
+    <div class="progress">
+      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 65%"></div>
+    </div>
+
+    <div class="jumbotron">
+      <h1 class="display-3">Привіт, друже!</h1>
+      <p class="lead">Тут буде розташована якась цікава або не дуже інформація.</p>
+      <hr class="my-4">
+      <p>Цей рядок взагалі потрібен?.</p>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Дізнатися більше</a>
+      </p>
+    </div>
+
+    <form>
+      <fieldset>
+        <legend>Реєстрація</legend>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Ім'я користувача</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введіть ім'я">
+          <small id="emailHelp" class="form-text text-muted">Ми ніколи не надаємо ваші дані кому-небудь.</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email адреса</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введіть email">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Пароль</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Пароль">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputFile">Завантажити файл</label>
+          <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+          <small id="fileHelp" class="form-text text-muted">Якщо ви хочете скористатися нашим сайтом на повну - завантажте файл і шукайте новотвори без обмежень.</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Зареєструватися</button>
+      </fieldset>
+    </form>
+
+    <footer class="footer" role="content-info">
+       <div class="wrapper">
+           <div class="left">
+               <p>© 2017. Усі права захищено.</p>
+           </div>
+           <div class="clearfix"></div>
+       </div>
+    </footer>
+  </body>
+</html>
