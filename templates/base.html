@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NeoSearch</title>
+    <link rel="stylesheet" href="static/css/bootstrap.css">
+  </head>
+
+  <body style="margin:0 150px 0 150px">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="/">NeoSearch</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Головна <span class="sr-only">(зараз)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Особистий кабінет</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">Про нас</a>
+          </li>
+        </ul>
+        <form>
+            <input type="button" value="Увійти" onClick='location.href="/login"'>
+        </form>
+      </div>
+    </nav>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+    <hr>
+
+    {% block content %}{% endblock %}
+
+    <br>
+    <hr>
+    <br>
+
+    <footer class="footer" role="contentinfo">
+       <div class="wrapper">
+           <div class="left">
+               <p align="center">© 2018. Усі права захищено.</p>
+           </div>
+           <div class="clearfix"></div>
+       </div>
+    </footer>
+  </body>
+</html>
