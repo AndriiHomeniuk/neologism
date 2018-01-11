@@ -188,4 +188,5 @@ if __name__ == '__main__':
     word_list = search_words_orthographic_vocabulary(pre_word_list)
     word_list_two = search_words_interpretative_vocabulary(word_list)
     word_list_three = search_words_internet_vocabulary(word_list_two)
-    list_to_file(word_list_three)
+    # list_to_file(word_list_three)
+    print(word_list_three)
