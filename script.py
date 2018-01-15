@@ -57,16 +57,7 @@ def open_file():
     pass
 
 
-def get_text_from_site():
-    """
-    This function help get some text from site and save this text on the server.
-    """
-    # text = text_from_site
-    text = "Гарне вікно в буржуазії хоча алюр кричить безіре"
-    return text
-
-
-def text_to_list(text): # done
+def text_to_list(text):
     """
     This function help split text to list for next process.
     """
@@ -79,7 +70,7 @@ def text_to_list(text): # done
     return text_list
 
 
-def search_words_own_vocabulary(text_list): # done
+def search_words_own_vocabulary(text_list):
     """
     This function search neologisms from the text on the own vocabularies and give list of neologisms.
     """
@@ -95,41 +86,41 @@ def search_words_own_vocabulary(text_list): # done
     return pre_list_of_neologisms
 
 
-def search_words_orthographic_vocabulary(pre_list_of_neologisms): # done
+def search_words_orthographic_vocabulary(text):
     """
     This function search neologisms from the text on the vocabularies site and give list of neologisms.
     """
-    first_list_of_neologisms = []
-    for word in pre_list_of_neologisms:
+    list_of_neologisms = []
+    for word in text:
         page = urllib.request.urlopen("http://slovnyk.ua/?swrd={}".format(quote(word))).read()
         soup = BeautifulSoup((page), 'html.parser')
         if not soup.find_all('table', class_='sfm_table'):
-            first_list_of_neologisms.append(word)
-    return first_list_of_neologisms
+            list_of_neologisms.append(word)
+    return list_of_neologisms
 
 
-def search_words_interpretative_vocabulary(first_list_of_neologisms): # done
+def search_words_interpretative_vocabulary(text):
     """
     This function search neologisms from the text on the vocabularies site and give list of neologisms.
     """
-    second_list_of_neologisms = []
-    for word in first_list_of_neologisms:
+    list_of_neologisms = []
+    for word in text:
         translit = ""
         for letter in word:
              translit += TRANSLIT[letter]
         page = urllib.request.urlopen("http://sum.in.ua/s/{}".format(quote(translit))).read()
         soup = BeautifulSoup((page), 'html.parser')
         if soup.find_all('div', id='search-res'):
-            second_list_of_neologisms.append(word)
-    return second_list_of_neologisms
+            list_of_neologisms.append(word)
+    return list_of_neologisms
 
 
-def search_words_internet_vocabulary(second_list_of_neologisms): # done
+def search_words_internet_vocabulary(text):
     """
     This function search neologisms from the text on the vocabularies site and give list of neologisms.
     """
     list_of_neologisms = []
-    for word in second_list_of_neologisms:
+    for word in text:
         try:
             page = urllib.request.urlopen("http://ukrlit.org/slovnyk/{}".format(quote(word))).read()
             soup = BeautifulSoup((page), 'html.parser')
@@ -140,23 +131,6 @@ def search_words_internet_vocabulary(second_list_of_neologisms): # done
                 pass
         list_of_neologisms.append(word)
     return list_of_neologisms
-
-
-def searching_words(text_list):
-    """
-    This function search neologisms and append all lists of neologisms to one final list
-    """
-    # final_list_of_neologisms = []
-    # checker = 0
-    # while checker <= len(text_list):
-    #     for word in text_list:
-    #
-    # search_words_own_vocabulary()
-    # search_words_orthographic_vocabulary()
-    # search_words_interpretative_vocabulary()
-    # search_words_internet_vocabulary()
-    #
-    # return final_list_of_neologisms
 
 
 def list_to_file(list_of_neologisms): # done
@@ -174,19 +148,13 @@ def give_file_to_site():
     pass
 
 
-def give_list_to_site(list_of_neologisms):
+def process(text):
     """
-    This function help save neologisms, that was find to list of neologisms, and print this list to site.
+    This function, finally, search neologisms from the text and return list of neologisms in the end.
     """
-    pass
-
-
-if __name__ == '__main__':
-    text = "Гарне вікно в буржуазії, хоча алюр кричить безіре"
     first_text = text_to_list(text)
     pre_word_list = search_words_own_vocabulary(first_text)
     word_list = search_words_orthographic_vocabulary(pre_word_list)
     word_list_two = search_words_interpretative_vocabulary(word_list)
     word_list_three = search_words_internet_vocabulary(word_list_two)
-    # list_to_file(word_list_three)
-    print(word_list_three)
+    return word_list_three

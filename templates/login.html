@@ -1,24 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1 style="margin:0 20px 0 20px">Увійти</h1>
+    <h1 align="center" style="margin:0 20px 0 20px">Увійти</h1>
     <form action="" method="post" style="margin:0 20px 0 20px">
         {{ form.hidden_tag() }}
-        <p>
+        <p align="center">
             {{ form.username.label }}<br>
             {{ form.username(size=32) }}
             {% for error in form.username.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <p>
+        <p align="center">
             {{ form.password.label }}<br>
             {{ form.password(size=32) }}
             {% for error in form.password.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p>{{ form.submit() }}</p>
+        <p align="center">{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p align="center">{{ form.submit() }}</p>
+          <p class="lead" align="center">
+            <a class="btn btn-primary btn-lg" href="/cabinet" role="button" onclick="">Зареєструватися</a>
+          </p>
     </form>
 {% endblock %}

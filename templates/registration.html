@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form>
+      <fieldset>
+        <legend>Реєстрація</legend>
+        <div class="form-group">
+          <label for="exampleTextarea">Ім'я користувача</label>
+          <input type="email" class="form-control" id="exampleTextarea" aria-describedby="emailHelp" placeholder="Введіть ім'я">
+          <small id="emailHelp" class="form-text text-muted">Ми ніколи не надаємо ваші дані кому-небудь.</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email адреса</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введіть email">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Пароль</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Пароль">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputFile">Завантажити файл</label>
+          <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+          <small id="fileHelp" class="form-text text-muted">Якщо ви хочете скористатися нашим сайтом на повну - завантажте файл і шукайте новотвори без обмежень.</small>
+        </div>
+          <p class="lead">
+            <a class="btn btn-primary btn-lg" href="/cabinet" role="button" onclick="">Зареєструватися</a>
+          </p>
+      </fieldset>
+    </form>
+{% endblock %}

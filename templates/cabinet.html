@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="jumbotron">
+      <h1 class="display-3">Привіт</h1>
+      <p class="lead">Тут повинно бути описано можливості особистого кабінету.</p>
+      <hr class="my-4">
+      <p>Табличка зі знайденими неологізмами.</p>
+      <p>Можливість загрузити файли та вже опрацьовані файли.</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button" onclick="">Загрузити текст</a>
+        </p>
+    </div>
+    <form action="{{ url_for('search') }}" method="post" style="margin:0 20px 0 20px">
+        <div style="width: 90%; margin-left: 7%">
+            <textarea id="source" name="text" maxlength="500" wrap="SOFT" tabindex="0" dir="ltr" spellcheck="false" class="goog-textarea short_text" style="box-sizing: border-box; overflow-y: hidden; overflow-x: auto; height: 100px; padding-right: 500px;"></textarea>
+            <textarea id="source-is" name="text-is" disabled="" wrap="SOFT" dir="ltr" spellcheck="false" autocomplete="off" class="goog-textarea short_text" style="overflow-y: hidden; overflow-x: auto; box-sizing: border-box; padding-bottom: 32px; height: 100px; padding-right: 500px;">{{ result }}</textarea>
+        </div>
+        <div id="gt-lang-submit" style="margin-left: 50%">
+            <input type="submit" id="gt-submit" value="Пошук" tabindex="0" class="jfk-button jfk-button-action">
+        </div>
+    </form>
+{% endblock %}
