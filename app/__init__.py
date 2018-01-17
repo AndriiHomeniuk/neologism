@@ -54,7 +54,3 @@ def cabinet():
 def registration():
     username = 'User'
     return render_template('registration.html', user=username)
-
-
-if __name__ == '__main__':
-    app.run()
