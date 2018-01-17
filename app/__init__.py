@@ -2,10 +2,16 @@ from flask import Flask, render_template, flash, redirect, request
 from config import Config
 from forms import LoginForm
 from script import process
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.debug = True
 app.config.from_object(Config)
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+from app import models
 
 
 @app.route('/')
