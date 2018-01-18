@@ -2,21 +2,47 @@
 
 {% block content %}
     <div class="jumbotron">
-      <h1 class="display-3">Привіт</h1>
-      <p class="lead">Тут повинно бути описано можливості особистого кабінету.</p>
-      <hr class="my-4">
-      <p>Табличка зі знайденими неологізмами.</p>
-      <p>Можливість загрузити файли та вже опрацьовані файли.</p>
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#" role="button" onclick="">Загрузити текст</a>
-        </p>
+        <table>
+            <tr valign="top">
+                <td><img src="http://alexeitruhin.github.io/images/avatar-br.png" style="width: 80px; height: 80px;"></td>
+                <td><h1 class="display-3">Привіт!</h1></td>
+            </tr>
+        </table>
+        <p class="lead">Ви, як зареєстрований користувач маєте розширені можливості:</p>
+        <p class="lead">1. Завантажувати текстові файли, розміром до 10 Мб, в яких потрібно провести пошук.</p>
+        <p class="lead">2. Здійснювати пошук в тексті, розміром не більше 1000 символів, а також бачити всі попередні результати пошуків.</p>
+        <p class="lead">3. Підписатися на інформування про оновлення та можливості нашого проекту.</p>
+
+        <hr class="my-4">
+
+        <h1 align="center">Результати попередніх пошуків.</h1>
+        <table border="1" align="center" cellpadding="5" style = "font-size: 18pt; width: 1200px; height: 50px">
+            <tr align="center">
+                <th>№</th>
+                <th>Знайдені слова</th>
+                <th>Неологізми</th>
+                <th>Їхнє значення</th>
+            </tr>
+            <tr><td align="center">1</td><td></td><td></td><td></td></tr>
+            <tr><td align="center">2</td><td></td><td></td><td></td></tr>
+            <tr><td align="center">3</td><td></td><td></td><td></td></tr>
+        </table>
+
+        <hr class="my-4">
+
+        <p>Можливість загрузити файли та вже опрацьовані файли.</p>
+        <label for="exampleInputFile">Завантажити файл</label>
+        <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+        <small id="fileHelp" class="form-text text-muted">Якщо ви хочете скористатися нашим сайтом на повну - завантажте файл і шукайте новотвори набагато швидше.</small>
     </div>
+
+    <p align="center">Тепер ви можете здійснювати пошук в тексті, розміром не більше 1000 символів.</p>
     <form action="{{ url_for('search') }}" method="post" style="margin:0 20px 0 20px">
-        <div style="width: 90%; margin-left: 7%">
-            <textarea id="source" name="text" maxlength="500" wrap="SOFT" tabindex="0" dir="ltr" spellcheck="false" class="goog-textarea short_text" style="box-sizing: border-box; overflow-y: hidden; overflow-x: auto; height: 100px; padding-right: 500px;"></textarea>
-            <textarea id="source-is" name="text-is" disabled="" wrap="SOFT" dir="ltr" spellcheck="false" autocomplete="off" class="goog-textarea short_text" style="overflow-y: hidden; overflow-x: auto; box-sizing: border-box; padding-bottom: 32px; height: 100px; padding-right: 500px;">{{ result }}</textarea>
+        <div style="width: 100%; text-align:center">
+            <textarea id="source" name="text" maxlength="1000" tabindex="0" cols="90" dir="ltr" class="goog-textarea short_text" style="box-sizing: border-box; overflow-y: hidden; overflow-x: auto; height: 100px; padding-right: 10px"></textarea>
+            <textarea id="source-is" name="text-is" disabled="" cols="90" dir="ltr" class="goog-textarea short_text" style="overflow-y: hidden; overflow-x: auto; box-sizing: border-box; padding-bottom: 32px; height: 100px; padding-right: 10px">{{ result }}</textarea>
         </div>
-        <div id="gt-lang-submit" style="margin-left: 50%">
+        <div id="gt-lang-submit" style="text-align:center">
             <input type="submit" id="gt-submit" value="Пошук" tabindex="0" class="jfk-button jfk-button-action">
         </div>
     </form>

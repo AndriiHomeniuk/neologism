@@ -1,56 +1,55 @@
-from flask import Flask, render_template, flash, redirect, request
+from flask import Flask
 from config import Config
-from forms import LoginForm
-from script import process
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_login import LoginManager
+from flask_admin import Admin
+import logging
+from logging.handlers import SMTPHandler, RotatingFileHandler
+import os
+# from flask_admin.contrib.sqla import ModelView
+
 
 app = Flask(__name__)
 app.debug = True
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+login = LoginManager(app)
+login.login_view = 'login'
+# admin = Admin(app, name='Neosearch', template_mode='bootstrap3')
+# admin.add_view(ModelView(User, db.session))
+# admin.add_view(ModelView(Post, db.session))
 
-from app import models
+if not app.debug:
+    if app.config['MAIL_SERVER']:
+        auth = None
+        if app.config['MAIL_USERNAME'] or app.config['MAIL_PASSWORD']:
+            auth = (app.config['MAIL_USERNAME'], app.config['MAIL_PASSWORD'])
+        secure = None
+        if app.config['MAIL_USE_TLS']:
+            secure = ()
+        mail_handler = SMTPHandler(
+            mailhost=(app.config['MAIL_SERVER'], app.config['MAIL_PORT']),
+            fromaddr='no-reply@' + app.config['MAIL_SERVER'],
+            toaddrs=app.config['ADMINS'], subject='App Failure',
+            credentials=auth, secure=secure)
+        mail_handler.setLevel(logging.ERROR)
+        app.logger.addHandler(mail_handler)
 
+    if not app.debug:
+        if not os.path.exists('logs'):
+            os.mkdir('logs')
+        file_handler = RotatingFileHandler('logs/neosearch.log', maxBytes=10240,
+                                           backupCount=10)
+        file_handler.setFormatter(logging.Formatter(
+            '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+        file_handler.setLevel(logging.INFO)
+        app.logger.addHandler(file_handler)
 
-@app.route('/')
-def index():
-    username = 'User'
-    return render_template('index.html', user=username)
+        app.logger.setLevel(logging.INFO)
+        app.logger.info('Neosearch startup')
 
-
-@app.route('/search', methods=['POST'])
-def search():
-    searching = request.form["text"]
-    app.logger.info(searching)
-    result = process(searching)
-    return render_template('index.html', result=", ".join(result))
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        flash('Login requested for user {}, remember_me={}'.format(
-            form.username.data, form.remember_me.data))
-        return redirect('/')
-    return render_template('login.html', title='Увійти', form=form)
-
-
-@app.route('/about')
-def about():
-    username = 'User'
-    return render_template('about.html', user=username)
-
-
-@app.route('/cabinet')
-def cabinet():
-    username = 'User'
-    return render_template('cabinet.html', user=username)
+from app import routes, models, errors
 
 
-@app.route('/registration')
-def registration():
-    username = 'User'
-    return render_template('registration.html', user=username)

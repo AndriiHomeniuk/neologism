@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>NeoSearch</title>
-    <link rel="stylesheet" href="static/css/bootstrap.css">
+      <title>NeoSearch</title>
+      <link rel="stylesheet" href="static/css/bootstrap.css">
+      <link rel="icon" href="/icon.ico" type="image/x-icon" />
   </head>
 
   <body style="margin:0 150px 0 150px">
@@ -17,14 +18,18 @@
             <a class="nav-link" href="/">Головна <span class="sr-only">(зараз)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/cabinet">Особистий кабінет</a>
+            <a class="nav-link" href="{{ url_for('cabinet', username=current_user.username) }}">Особистий кабінет</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/about">Про нас</a>
           </li>
         </ul>
         <form>
+            {% if current_user.is_anonymous %}
             <input type="button" value="Увійти" onclick='location.href="/login"'>
+            {% else %}
+            <input type="button" value="Вийти" onclick='location.href="/logout"'>
+            {% endif %}
         </form>
       </div>
     </nav>

@@ -19,9 +19,11 @@
             {% endfor %}
         </p>
         <p align="center">{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p align="center">{{ form.submit() }}</p>
-          <p class="lead" align="center">
-            <a class="btn btn-primary btn-lg" href="/cabinet" role="button" onclick="">Зареєструватися</a>
-          </p>
+        <p class="lead" align="center">
+            <a class="btn btn-primary btn-lg" href="/cabinet" role="button" onclick="">{{ form.submit() }}</a>
+        </p>
+        <p class="lead" align="center">
+            <a class="btn btn-primary btn-lg" href="/registration" role="button" onclick="">Зареєструватися</a>
+        </p>
     </form>
 {% endblock %}

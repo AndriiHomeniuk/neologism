@@ -1,30 +1,40 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <form>
-      <fieldset>
-        <legend>Реєстрація</legend>
-        <div class="form-group">
-          <label for="exampleTextarea">Ім'я користувача</label>
-          <input type="email" class="form-control" id="exampleTextarea" aria-describedby="emailHelp" placeholder="Введіть ім'я">
-          <small id="emailHelp" class="form-text text-muted">Ми ніколи не надаємо ваші дані кому-небудь.</small>
-        </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email адреса</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введіть email">
-        </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Пароль</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Пароль">
-        </div>
-        <div class="form-group">
-          <label for="exampleInputFile">Завантажити файл</label>
-          <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-          <small id="fileHelp" class="form-text text-muted">Якщо ви хочете скористатися нашим сайтом на повну - завантажте файл і шукайте новотвори без обмежень.</small>
-        </div>
-          <p class="lead">
-            <a class="btn btn-primary btn-lg" href="/cabinet" role="button" onclick="">Зареєструватися</a>
-          </p>
-      </fieldset>
+    <h1 align="center" style="margin:0 20px 0 20px">Реєстрація</h1>
+    <form action="" method="post" style="margin:0 20px 0 20px">
+        {{ form.hidden_tag() }}
+        <p align="center">
+            {{ form.username.label }}<br>
+            {{ form.username(size=40) }}<br>
+            <small id="emailHelp" class="form-text text-muted">Ми ніколи не надаємо ваші дані кому-небудь.</small>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p align="center">
+            {{ form.email.label }}<br>
+            {{ form.email(size=40) }}<br>
+            {% for error in form.email.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p align="center">
+            {{ form.password.label }}<br>
+            {{ form.password(size=40) }}<br>
+            {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p align="center">
+            {{ form.password2.label }}<br>
+            {{ form.password2(size=40) }}<br>
+            {% for error in form.password2.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p class="lead" align="center">
+            <a class="btn btn-primary btn-lg" role="button" onclick="">{{ form.submit() }}</a>
+        </p>
     </form>
 {% endblock %}
