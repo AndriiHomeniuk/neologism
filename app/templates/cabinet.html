@@ -39,7 +39,7 @@
     <p align="center">Тепер ви можете здійснювати пошук в тексті, розміром не більше 1000 символів.</p>
     <form action="{{ url_for('search') }}" method="post" style="margin:0 20px 0 20px">
         <div style="width: 100%; text-align:center">
-            <textarea id="source" name="text" maxlength="1000" tabindex="0" cols="90" dir="ltr" class="goog-textarea short_text" style="box-sizing: border-box; overflow-y: hidden; overflow-x: auto; height: 100px; padding-right: 10px"></textarea>
+            <textarea id="source" name="text" maxlength="50000" tabindex="0" cols="90" dir="ltr" class="goog-textarea short_text" style="box-sizing: border-box; overflow-y: hidden; overflow-x: auto; height: 100px; padding-right: 10px"></textarea>
             <textarea id="source-is" name="text-is" disabled="" cols="90" dir="ltr" class="goog-textarea short_text" style="overflow-y: hidden; overflow-x: auto; box-sizing: border-box; padding-bottom: 32px; height: 100px; padding-right: 10px">{{ result }}</textarea>
         </div>
         <div id="gt-lang-submit" style="text-align:center">

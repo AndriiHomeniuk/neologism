@@ -1,10 +1,11 @@
 from forms import LoginForm, RegistrationForm
 from script import process
 from app import app, db
-from flask import render_template, flash, redirect, request
+from flask import render_template, flash, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
 from werkzeug.urls import url_parse
+import time
 
 
 @app.route('/')
@@ -14,9 +15,12 @@ def index():
 
 @app.route('/search', methods=['POST'])
 def search():
+    time_one = time.clock()
     searching = request.form["text"]
     app.logger.info(searching)
     result = process(searching)
+    timer = time.clock() - time_one
+    app.logger.info(timer)
     if result:
         return render_template('index.html', result=", ".join(result))
     else:

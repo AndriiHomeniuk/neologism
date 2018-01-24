@@ -4,6 +4,7 @@ import urllib.request
 from urllib.parse import quote
 import urllib.error
 import io
+import time
 
 
 TRANSLIT = {
@@ -67,7 +68,7 @@ def text_to_list(text):
             if not word[-1].isalpha():
                 word = word[:-1]
             text_list.append(word.lower())
-    return text_list
+    return list(set(text_list))
 
 
 def search_words_own_vocabulary(text_list):
