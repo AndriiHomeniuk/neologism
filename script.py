@@ -4,7 +4,7 @@ import urllib.request
 from urllib.parse import quote
 import urllib.error
 import io
-import time
+import sqlite3
 
 
 TRANSLIT = {
@@ -76,14 +76,15 @@ def search_words_own_vocabulary(text_list):
     This function search neologisms from the text on the own vocabularies and give list of neologisms.
     """
     pre_list_of_neologisms = []
-    with io.open('o_voc.txt', 'r', encoding="UTF-8") as file:
-        file = file.readlines()
-        for word in file:
-            file_text = word.split()
-        for word in text_list:
-            if word not in file_text:
-                pre_list_of_neologisms.append(word)
-                file_text.append(word)
+    vocabulary = sqlite3.connect("voc.db")
+    voc = vocabulary.cursor()
+    for word in text_list:
+        voc.execute("SELECT * FROM voc")
+        result = voc.fetchall()
+        if word not in result[0]:
+            pre_list_of_neologisms.append(word)
+    voc.close()
+    vocabulary.close()
     return pre_list_of_neologisms
 
 
@@ -158,5 +159,5 @@ def process(text):
     word_list = search_words_orthographic_vocabulary(pre_word_list)
     word_list_two = search_words_interpretative_vocabulary(word_list)
     word_list_three = search_words_internet_vocabulary(word_list_two)
-    return word_list_three
+    return pre_word_list
 
