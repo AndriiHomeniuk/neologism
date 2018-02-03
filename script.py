@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 import urllib.request
 from urllib.parse import quote
 import urllib.error
-import io
 import sqlite3
 
 
@@ -78,11 +77,13 @@ def search_words_own_vocabulary(text_list):
     pre_list_of_neologisms = []
     vocabulary = sqlite3.connect("voc.db")
     voc = vocabulary.cursor()
-    for word in text_list:
-        voc.execute("SELECT * FROM voc")
+    for words in text_list:
+        voc.execute("SELECT word FROM voc WHERE word='%s'" % words)
         result = voc.fetchall()
-        if word not in result[0]:
-            pre_list_of_neologisms.append(word)
+        if not result:
+            pre_list_of_neologisms.append(words)
+        elif words not in result[0][0]:
+            pre_list_of_neologisms.append(words)
     voc.close()
     vocabulary.close()
     return pre_list_of_neologisms
