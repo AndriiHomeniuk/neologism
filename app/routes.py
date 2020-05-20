@@ -11,8 +11,8 @@ from werkzeug.urls import url_parse
 
 from app import app, db
 from app.models import User
-from forms import LoginForm, RegistrationForm
-from script import process
+from app.forms import LoginForm, RegistrationForm
+from app.search_neologism_logic import process
 
 
 @app.route('/')
@@ -23,7 +23,7 @@ def index():
 @app.route('/search', methods=['POST'])
 def search():
     time_one = time.clock()
-    searching = request.form["text"]
+    searching = request.form['text']
     app.logger.info(searching)
     result = process(searching)
     timer = time.clock() - time_one
@@ -43,7 +43,7 @@ def login():
     if form.validate_on_submit():
         app_user = User.query.filter_by(username=form.username.data).first()
         if app_user is None or not app_user.check_password(form.password.data):
-            flash('Неправильно введені пароль або ім"я користувача. Перевірте дані.')
+            flash('Неправильно введені пароль або ім\'я користувача. Перевірте дані.')
             return render_template('login.html', form=form)
 
         login_user(app_user, remember=form.remember_me.data)

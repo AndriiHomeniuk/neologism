@@ -47,7 +47,7 @@ def open_file():
     """
     This function help open file with some text, that was saved on the server.
     """
-    with open('neologism_file.txt', 'r', encoding="UTF-8") as read_file:
+    with open('../neologism_file.txt', 'r', encoding="UTF-8") as read_file:
         text = read_file.read()
     return text
 
@@ -135,7 +135,7 @@ def list_to_file(list_of_neologisms):
     """
     This function write list of neologisms to the file, that will be download by user.
     """
-    with open('neologism_file.txt', 'a', encoding="UTF-8") as neologism_file:
+    with open('../neologism_file.txt', 'a', encoding="UTF-8") as neologism_file:
         neologism_file.write(str(list_of_neologisms))
 
 
@@ -147,5 +147,4 @@ def process(text):
     pre_word_list = search_words_own_vocabulary(first_text)
     word_list = search_words_orthographic_vocabulary(pre_word_list)
     word_list_two = search_words_interpretative_vocabulary(word_list)
-    word_list_three = search_words_internet_vocabulary(word_list_two)
-    return word_list_three
+    return search_words_internet_vocabulary(word_list_two)

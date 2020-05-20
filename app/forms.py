@@ -26,8 +26,7 @@ class RegistrationForm(FlaskForm):
     username = StringField('Ім\'я користувача', validators=[DataRequired()])
     email = StringField('Email адреса', validators=[DataRequired(), Email()])
     password = PasswordField('Пароль', validators=[DataRequired()])
-    password2 = PasswordField(
-        'Повторіть пароль', validators=[DataRequired(), EqualTo('password')])
+    password2 = PasswordField('Повторіть пароль', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Зареєструватися')
 
     @staticmethod
