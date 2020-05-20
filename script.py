@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from bs4 import BeautifulSoup
+import sqlite3
+import urllib.error
 import urllib.request
 from urllib.parse import quote
-import urllib.error
-import sqlite3
 
+from bs4 import BeautifulSoup
 
 TRANSLIT = {
     "а": "a",
@@ -41,13 +41,6 @@ TRANSLIT = {
     "я": "ia",
     "ь": "j"
 }
-
-
-def get_file_from_site():
-    """
-    This function help get file with some text from site and save this file on the server for next process.
-    """
-    pass
 
 
 def open_file():
@@ -97,8 +90,8 @@ def search_words_orthographic_vocabulary(text):
     """
     list_of_neologisms = []
     for word in text:
-        page = urllib.request.urlopen("http://slovnyk.ua/?swrd={}".format(quote(word))).read()
-        soup = BeautifulSoup((page), 'html.parser')
+        page = urllib.request.urlopen('http://slovnyk.ua/?swrd={}'.format(quote(word))).read()
+        soup = BeautifulSoup(page, 'html.parser')
         if not soup.find_all('table', class_='sfm_table'):
             list_of_neologisms.append(word)
     return list_of_neologisms
@@ -110,11 +103,9 @@ def search_words_interpretative_vocabulary(text):
     """
     list_of_neologisms = []
     for word in text:
-        translit = ""
-        for letter in word:
-             translit += TRANSLIT[letter]
-        page = urllib.request.urlopen("http://sum.in.ua/s/{}".format(quote(translit))).read()
-        soup = BeautifulSoup((page), 'html.parser')
+        translit = ''.join(TRANSLIT[letter] for letter in word)
+        page = urllib.request.urlopen('http://sum.in.ua/s/{}'.format(quote(translit))).read()
+        soup = BeautifulSoup(page, 'html.parser')
         if soup.find_all('div', id='search-res'):
             list_of_neologisms.append(word)
     return list_of_neologisms
@@ -127,13 +118,15 @@ def search_words_internet_vocabulary(text):
     list_of_neologisms = []
     for word in text:
         try:
-            page = urllib.request.urlopen("http://ukrlit.org/slovnyk/{}".format(quote(word))).read()
-            soup = BeautifulSoup((page), 'html.parser')
+            page = urllib.request.urlopen('http://ukrlit.org/slovnyk/{}'.format(quote(word))).read()
+            soup = BeautifulSoup(page, 'html.parser')
             if soup.find_all('div', class_='main slovnik'):
                 continue
+
         except urllib.error.HTTPError as err:
             if err.code == 404:
                 pass
+
         list_of_neologisms.append(word)
     return list_of_neologisms
 
@@ -146,13 +139,6 @@ def list_to_file(list_of_neologisms):
         neologism_file.write(str(list_of_neologisms))
 
 
-def give_file_to_site():
-    """
-    This function return file with saved neologisms for downloading.
-    """
-    pass
-
-
 def process(text):
     """
     This function, finally, search neologisms from the text and return list of neologisms in the end.
@@ -163,4 +149,3 @@ def process(text):
     word_list_two = search_words_interpretative_vocabulary(word_list)
     word_list_three = search_words_internet_vocabulary(word_list_two)
     return word_list_three
-
