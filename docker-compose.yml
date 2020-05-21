@@ -7,17 +7,3 @@ services:
       - .:/app
     ports:
       - 5005:80
-    depends_on:
-      - db
-  db:
-    container_name: postgres
-    image: postgres:latest
-    volumes:
-      - db_volumes:/var/lib/postgresql/data
-    env_file:
-      - app/database.conf
-    ports:
-      - 5433:5433
-
-volumes:
-  db_volumes:
