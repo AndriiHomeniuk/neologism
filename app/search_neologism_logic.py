@@ -44,9 +44,6 @@ TRANSLIT = {
 
 
 def open_file():
-    """
-    This function help open file with some text, that was saved on the server.
-    """
     with open('../neologism_file.txt', 'r', encoding="UTF-8") as read_file:
         text = read_file.read()
     return text

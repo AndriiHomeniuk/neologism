@@ -13,8 +13,6 @@ app = Flask(__name__)
 app.debug = True
 app.config.from_object(Config)
 db = SQLAlchemy(app)
-# db.init_app(app)
-# db.create_all()
 migrate = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = 'login'
