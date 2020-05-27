@@ -48,20 +48,29 @@ def text_to_list(text):
     return list(set(re.findall(r'\w+', text)))
 
 
+def upload_to_app_db(new_words):
+    with sqlite3.connect('../voc.db') as vocabulary:
+        voc = vocabulary.cursor()
+        for word in new_words:
+            voc.execute("INSERT INTO voc (word) VALUES ('%s');" % word)
+        voc.close()
+    return True
+
+
 def search_words_own_vocabulary(text_list):
     """
     This function search neologisms from the text on the own vocabularies and give list of neologisms.
     """
     pre_list_of_neologisms = []
-    vocabulary = sqlite3.connect('../voc.db')
-    voc = vocabulary.cursor()
-    for words in text_list:
-        voc.execute("SELECT word FROM voc WHERE word='%s'" % words)
-        result = voc.fetchall()
-        if not result or words not in result[0][0]:
-            pre_list_of_neologisms.append(words)
-    voc.close()
-    vocabulary.close()
+    with sqlite3.connect('../voc.db') as vocabulary:
+        voc = vocabulary.cursor()
+        voc.execute("CREATE TABLE IF NOT EXISTS [voc] ([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, [word] STRING);")
+        for word in text_list:
+            voc.execute("SELECT word FROM voc WHERE word='%s';" % word)
+            result = voc.fetchall()
+            if not result or word not in result[0][0]:
+                pre_list_of_neologisms.append(word)
+        voc.close()
     return pre_list_of_neologisms
 
 
@@ -114,4 +123,6 @@ def process(text):
     pre_word_list = search_words_own_vocabulary(first_text)
     word_list = search_words_orthographic_vocabulary(pre_word_list)
     word_list_two = search_words_interpretative_vocabulary(word_list)
-    return list(search_words_internet_vocabulary(word_list_two))
+    result = list(search_words_internet_vocabulary(word_list_two))
+    upload_to_app_db(list(set(pre_word_list).symmetric_difference(result)))
+    return result
