@@ -1,6 +1,10 @@
-import time
+from time import clock as time_clock
 
-from flask import render_template, flash, request
+from flask import (
+    render_template,
+    flash,
+    request,
+)
 from flask_login import (
     current_user,
     login_user,
@@ -22,11 +26,11 @@ def index():
 
 @app.route('/search', methods=['POST'])
 def search():
-    time_one = time.clock()
+    time_one = time_clock()
     searching = request.form['text']
     app.logger.info(searching)
     result = process(searching)
-    timer = time.clock() - time_one
+    timer = time_clock() - time_one
     app.logger.info(timer)
     if result:
         return render_template('index.html', result=', '.join(result))
@@ -49,8 +53,7 @@ def login():
         login_user(app_user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = 'index.html'
-            return render_template(next_page)
+            return render_template('index.html')
 
     return render_template('login.html', title='Увійти', form=form)
 

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import re
 import sqlite3
-import urllib.error
-import urllib.request
+from urllib.error import HTTPError
 from urllib.parse import quote
 
+import requests
 from bs4 import BeautifulSoup
 
 TRANSLIT = {
@@ -79,9 +79,9 @@ def search_words_orthographic_vocabulary(text):
     This function search neologisms from the text on the vocabularies site and give list of neologisms.
     """
     for word in text:
-        page = urllib.request.urlopen('http://slovnyk.ua/?swrd={}'.format(quote(word))).read()
+        page = requests.get(f'http://slovnyk.ua/?swrd={quote(word)}').content
         soup = BeautifulSoup(page, 'html.parser')
-        if not soup.find_all('div', class_='toggle-content'):
+        if not soup.select('div.toggle-content'):
             yield word
 
 
@@ -91,9 +91,9 @@ def search_words_interpretative_vocabulary(text):
     """
     for word in text:
         translit = ''.join(TRANSLIT[letter] for letter in word)
-        page = urllib.request.urlopen('http://sum.in.ua/s/{}'.format(quote(translit))).read()
+        page = requests.get(f'http://sum.in.ua/s/{quote(translit)}').content
         soup = BeautifulSoup(page, 'html.parser')
-        if soup.find_all('div', id='search-res'):
+        if soup.select('div#search-res'):
             yield word
 
 
@@ -103,13 +103,13 @@ def search_words_internet_vocabulary(text):
     """
     for word in text:
         try:
-            page = urllib.request.urlopen('http://ukrlit.org/slovnyk/{}'.format(quote(word))).read()
+            page = requests.get(f'http://ukrlit.org/slovnyk/{quote(word)}').content
             soup = BeautifulSoup(page, 'html.parser')
-            if soup.find_all('div', class_='main slovnik'):
+            if soup.select('div.main.slovnik'):
                 continue
 
-        except urllib.error.HTTPError as err:
-            if err.code == 404:
+        except HTTPError:
+            if HTTPError.code == 404:
                 pass
 
         yield word
